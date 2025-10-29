@@ -1,0 +1,3 @@
+First line with newline\n
+Second line with newline\n
+Third line without newline

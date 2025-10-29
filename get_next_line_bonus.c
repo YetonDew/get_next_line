@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ajeffers <ajeffers@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/27 14:17:09 by ajeffers          #+#    #+#             */
-/*   Updated: 2025/10/28 14:55:42 by ajeffers         ###   ########.fr       */
+/*   Updated: 2025/10/28 14:56:08 by ajeffers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 char	*_set_line(char *line_buffer)
 {
@@ -79,15 +79,15 @@ char	*_fill_line_buffer(int fd, char *remainer)
 
 char	*get_next_line(int fd)
 {
-	static char	*remainer;
+	static char	*remainer[FD_MAX];
 	char		*line;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	remainer = _fill_line_buffer(fd, remainer);
-	if (!remainer)
+	remainer[fd] = _fill_line_buffer(fd, remainer[fd]);
+	if (!remainer[fd])
 		return (NULL);
-	line = _set_line(remainer);
-	remainer = new_remainer(remainer);
+	line = _set_line(remainer[fd]);
+	remainer[fd] = new_remainer(remainer[fd]);
 	return (line);
 }
